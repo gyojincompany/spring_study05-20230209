@@ -1,6 +1,7 @@
 package com.gyojincompany.home;
 
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 public class LoginValidator implements Validator {
@@ -17,12 +18,14 @@ public class LoginValidator implements Validator {
 		
 		MemberDto memberDto = (MemberDto) target;
 		//검증하려는 객체인 memberDto 객체를 검증 타겟으로 설정
-		String memberId = memberDto.getId();
+		//String memberId = memberDto.getId();
 		int memberPw = memberDto.getPw();
 		
-		if(memberId == null || memberId.trim().isEmpty()) {
-			errors.rejectValue("id", "trouble");
-		}
+//		if(memberId == null || memberId.trim().isEmpty()) {
+//			errors.rejectValue("id", "trouble");
+//		}
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "trouble");
 		
 		if(memberPw == 0) {
 			errors.rejectValue("pw", "trouble");
